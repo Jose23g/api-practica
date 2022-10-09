@@ -46,5 +46,24 @@ namespace api_practica.Controllers
             
         }
 
+        [HttpPut("Editar")]
+         
+        public IActionResult Editar([FromBody] Modelo.Album album)
+        {
+            try
+            {
+                Repositorio.Editar(album);
+                return Ok(album);
+            }
+            catch (Exception e)
+            {
+
+                return Ok(e);
+            }
+
+
+        }
+
+
     }
 }

@@ -11,6 +11,10 @@ namespace BL
     {
         List<Album> Obtenertodo();
         Album ingresar(Album album);
+
+        Album BuscarId(int id);
+
+        Album Editar(Album Amodificar);
     } 
 
 }

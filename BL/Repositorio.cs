@@ -13,6 +13,30 @@ namespace BL
             ElContextoBD= elContextoBD;
         }
 
+        public Album BuscarId(int id)
+        {
+            Album albumbuscado = new Album();
+
+            albumbuscado = ElContextoBD.Album.Find(id);
+            return albumbuscado;
+        }
+
+        public Album Editar(Album Amodificar)
+        {
+            Album albumaeditar = new Album();
+            albumaeditar = BuscarId(Amodificar.id);
+
+            albumaeditar.ArtisName = Amodificar.ArtisName;
+            albumaeditar.Price = Amodificar.Price;
+            albumaeditar.Name = Amodificar.Name;
+            albumaeditar.genre = Amodificar.genre;
+            albumaeditar.id=Amodificar.id;
+            ElContextoBD.Album.Update(albumaeditar);
+            ElContextoBD.SaveChanges();
+
+            return albumaeditar;
+        }
+
         public Album ingresar(Album album)
         {
             try
