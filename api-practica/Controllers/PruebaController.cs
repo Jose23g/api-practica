@@ -1,4 +1,5 @@
 ﻿using BL;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Modelo;
@@ -19,8 +20,7 @@ namespace api_practica.Controllers
            Repositorio = repositorio;
         }
 
-
-
+      
         // GET: api/<ValuesController>
         [HttpGet]
         public IEnumerable<Album> Get()

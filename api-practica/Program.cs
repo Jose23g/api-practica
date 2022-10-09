@@ -1,6 +1,8 @@
 
 using DA;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System.Configuration;
 
 
@@ -22,6 +24,7 @@ builder.Services.AddDbContext<ContextoDeBasedeDatos>(options =>
 });
 
 
+
 builder.Services.AddScoped<BL.IRepositorio, BL.Repositorio>();
 
 
@@ -36,6 +39,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
