@@ -17,7 +17,7 @@ namespace api_practica.Controllers
 
         public PruebaController(IRepositorio repositorio)
         {
-           Repositorio = repositorio;
+            Repositorio = repositorio;
         }
 
       
@@ -30,6 +30,12 @@ namespace api_practica.Controllers
             return losAlbums;
         }
 
-       
+        [HttpPost("ingresar")]
+        public void Post([FromBody] Modelo.Album album)
+        {
+            Repositorio.ingresar(album);
+            
+        }
+
     }
 }
