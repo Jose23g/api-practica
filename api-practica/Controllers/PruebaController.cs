@@ -31,7 +31,7 @@ namespace api_practica.Controllers
         }
 
         [HttpPost("ingresar")]
-        public IActionResult Post([FromBody] Modelo.Album album)
+        public IActionResult Post([FromBody] Album album)
         {
             try
             {

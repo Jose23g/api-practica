@@ -8,15 +8,12 @@ namespace DA
 {
     public class ContextoDeBasedeDatos: DbContext
     {
+        public DbSet<Album> Album { get; set; }
+
         public ContextoDeBasedeDatos(DbContextOptions<ContextoDeBasedeDatos> opciones) : base(opciones)
         {
 
         }
-
-        public DbSet<Album> Album { get; set; }
-       
-        
-
     }
 
 }

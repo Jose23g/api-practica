@@ -15,11 +15,20 @@ namespace BL
 
         public Album ingresar(Album album)
         {
-            Album temporal = new Album();
-            temporal = album; 
-            ElContextoBD.Add(temporal);  
-            
-            return temporal;
+            try
+            {
+                Album temporal = new Album();
+                temporal = album;
+                ElContextoBD.Add(temporal);
+                ElContextoBD.SaveChanges();
+
+                return temporal;
+            }
+            catch(Exception e)
+            {
+               return album;
+            }
+           
         }
 
         public List<Album> Obtenertodo()
