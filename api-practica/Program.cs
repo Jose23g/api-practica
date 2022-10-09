@@ -23,8 +23,6 @@ builder.Services.AddDbContext<ContextoDeBasedeDatos>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
-
-
 builder.Services.AddScoped<BL.IRepositorio, BL.Repositorio>();
 
 

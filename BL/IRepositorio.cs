@@ -10,7 +10,7 @@ namespace BL
     public interface IRepositorio
     {
         List<Album> Obtenertodo();
-        void ingresar(Album album);
+        Album ingresar(Album album);
     } 
 
 }

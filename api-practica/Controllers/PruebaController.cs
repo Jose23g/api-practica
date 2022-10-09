@@ -31,9 +31,18 @@ namespace api_practica.Controllers
         }
 
         [HttpPost("ingresar")]
-        public void Post([FromBody] Modelo.Album album)
+        public IActionResult Post([FromBody] Modelo.Album album)
         {
-            Repositorio.ingresar(album);
+            try
+            {
+                Repositorio.ingresar(album);
+                return Ok(album);
+            }
+            catch(Exception e)
+            {
+                return Ok(e);
+            }
+          
             
         }
 

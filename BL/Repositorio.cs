@@ -13,12 +13,13 @@ namespace BL
             ElContextoBD= elContextoBD;
         }
 
-        public void ingresar(Album album)
+        public Album ingresar(Album album)
         {
             Album temporal = new Album();
             temporal = album; 
             ElContextoBD.Add(temporal);  
             
+            return temporal;
         }
 
         public List<Album> Obtenertodo()
