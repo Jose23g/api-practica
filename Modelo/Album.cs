@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace Modelo
+﻿namespace Modelo
 {
     public class Album
     {

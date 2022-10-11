@@ -1,6 +1,4 @@
 ﻿using BL;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.DataProtection.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Modelo;
 
@@ -20,7 +18,7 @@ namespace api_practica.Controllers
             Repositorio = repositorio;
         }
 
-      
+
         // GET: api/<ValuesController>
         [HttpGet]
         public IEnumerable<Album> Get()
@@ -38,12 +36,12 @@ namespace api_practica.Controllers
                 Repositorio.ingresar(album);
                 return Ok(album);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Ok(e);
             }
-          
-            
+
+
         }
 
     }

@@ -1,5 +1,4 @@
 ﻿using DA;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using Modelo;
 
 namespace BL
@@ -10,7 +9,7 @@ namespace BL
 
         public Repositorio(ContextoDeBasedeDatos elContextoBD)
         {
-            ElContextoBD= elContextoBD;
+            ElContextoBD = elContextoBD;
         }
 
         public Album ingresar(Album album)
@@ -24,21 +23,21 @@ namespace BL
 
                 return temporal;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-               return album;
+                return album;
             }
-           
+
         }
 
         public List<Album> Obtenertodo()
         {
             List<Album> albums;
             albums = ElContextoBD.Album.ToList();
-           return albums;
+            return albums;
         }
 
-       
+
 
     }
 }
