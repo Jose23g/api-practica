@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Modelo;
-using System.Configuration;
-using System.Text;
 
 
 
@@ -27,7 +25,15 @@ builder.Services.AddDbContext<ContextoDeBasedeDatos>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
-
+builder.Services.AddIdentity<Usuario, IdentityRole>(x =>
+{
+    x.Password.RequireDigit = false;
+    x.Password.RequireLowercase = false;
+    x.Password.RequireUppercase = false;
+    x.Password.RequireNonAlphanumeric = false;
+    x.User.RequireUniqueEmail = true;
+}).AddEntityFrameworkStores<ContextoDeBasedeDatos>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<BL.IRepositorio, BL.Repositorio>();
 
@@ -48,10 +54,10 @@ builder.Services.AddAuthentication(options =>
     {
         ValidateIssuer = true,
         ValidateAudience = true,
-        
+
     };
-});  
-          
+});
+
 
 var app = builder.Build();
 

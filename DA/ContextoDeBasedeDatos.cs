@@ -1,15 +1,13 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Modelo;
 
 namespace DA
 {
-    public class ContextoDeBasedeDatos : DbContext
+    public class ContextoDeBasedeDatos : IdentityDbContext<Usuario>
     {
         public DbSet<Album> Album { get; set; }
-        public DbSet<Usuario> Usuarios { get; set; }
-
-
+      
         public ContextoDeBasedeDatos(DbContextOptions<ContextoDeBasedeDatos> opciones) : base(opciones)
         {
 

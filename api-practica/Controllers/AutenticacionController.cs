@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Modelo;
@@ -39,7 +38,7 @@ namespace api_practica.Controllers
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 };
 
-                foreach (var userRole in await userManager.GetRolesAsync(user.Id))
+                foreach (var userRole in await userManager.GetRolesAsync(user))
                 {
                     authClaims.Add(new Claim(ClaimTypes.Role, userRole));
                 }
@@ -111,7 +110,7 @@ namespace api_practica.Controllers
 
             if (await roleManager.RoleExistsAsync(RolesUsuario.Admin))
             {
-                await userManager.AddToRoleAsync(user.Id, RolesUsuario.Admin);
+                await userManager.AddToRoleAsync(user, RolesUsuario.Admin);
             }
 
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
