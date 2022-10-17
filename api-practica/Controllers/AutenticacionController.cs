@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using BL;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Modelo;
+using Org.BouncyCastle.Bcpg.OpenPgp;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -15,12 +17,13 @@ namespace api_practica.Controllers
         private readonly UserManager<Usuario> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IConfiguration _configuration;
-
-        public AutenticacionController(UserManager<Usuario> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
+        private readonly IRepositorioUsuarios _repositorioUsuarios;
+        public AutenticacionController(UserManager<Usuario> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration, IRepositorioUsuarios repositorioUsuarios)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
             _configuration = configuration;
+            this._repositorioUsuarios = repositorioUsuarios;
         }
 
         [HttpPost]
@@ -70,7 +73,7 @@ namespace api_practica.Controllers
         {
             var userExists = await userManager.FindByNameAsync(model.Username);
             if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response(){ Status = "Error", Message = "User already exists!" });
 
             Usuario user = new Usuario()
             {
@@ -78,6 +81,7 @@ namespace api_practica.Controllers
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = model.Username
             };
+            
             var result = await userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
@@ -114,6 +118,21 @@ namespace api_practica.Controllers
             }
 
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
+        }
+
+        [HttpPost]
+        [Route("NuevoUser")]
+        public async Task<IActionResult> RegistrarNuevo([FromBody] RegisterModel nuevo)
+        {
+            Response response = await _repositorioUsuarios.Registrar(nuevo);
+            if (!response.code)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, response);
+            }
+            else
+            {
+                return Ok(response);
+            }
         }
     }
 }

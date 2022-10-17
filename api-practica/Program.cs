@@ -1,4 +1,5 @@
 
+using BL;
 using DA;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -35,7 +36,8 @@ builder.Services.AddIdentity<Usuario, IdentityRole>(x =>
 }).AddEntityFrameworkStores<ContextoDeBasedeDatos>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddScoped<BL.IRepositorio, BL.Repositorio>();
+builder.Services.AddScoped<IRepositorio, Repositorio>();
+builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuarios>();
 
 // Adding Authentication  
 builder.Services.AddAuthentication(options =>
