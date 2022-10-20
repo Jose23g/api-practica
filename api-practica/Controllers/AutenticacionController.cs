@@ -134,5 +134,20 @@ namespace api_practica.Controllers
                 return Ok(response);
             }
         }
+
+        [HttpPost]
+        [Route("LoginUsuario")]
+        public async Task<IActionResult> LoginUsuario([FromBody] RegisterModel usuario)
+        {
+            Response response = await _repositorioUsuarios.LoginUsuario(usuario);
+            if (!response.code)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, response);
+            }
+            else
+            {
+                return Ok(response);
+            }
+        }
     }
 }
