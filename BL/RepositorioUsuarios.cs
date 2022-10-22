@@ -47,15 +47,16 @@ namespace BL
         public async Task<Response> LoginUsuario(RegisterModel usuariologin)
         {
             var user = await _userManager.FindByNameAsync(usuariologin.Username);
-            if (user != null && await _userManager.CheckPasswordAsync(user, usuariologin.Password))
+            
+                if (user != null && await _userManager.CheckPasswordAsync(user, usuariologin.Password))
+                {
+                    return new Response() { code = true, Message = "Perfecto metido en el sistema", Status = "Success" };
+                }else
             {
-                return new Response() { code = true, Message = "Perfecto metido en el sistema", Status = "Success" };
+                return new Response() { code = false, Message ="Algo ocurrio", Status = "Error" };
             }
-            else
-            {
-                return new Response() { code = false, Message = "No coincide alguno de los 2", Status = "Error" };
-            }
-
+           
+   
             }
 
 

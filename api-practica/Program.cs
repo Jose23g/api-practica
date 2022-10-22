@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Modelo;
-
-
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,11 +32,13 @@ builder.Services.AddIdentity<Usuario, IdentityRole>(x =>
     x.Password.RequireUppercase = false;
     x.Password.RequireNonAlphanumeric = false;
     x.User.RequireUniqueEmail = true;
-}).AddEntityFrameworkStores<ContextoDeBasedeDatos>()
+})
+    .AddEntityFrameworkStores<ContextoDeBasedeDatos>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IRepositorio, Repositorio>();
 builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuarios>();
+var configuration = builder.Configuration;
 
 // Adding Authentication  
 builder.Services.AddAuthentication(options =>
@@ -56,7 +57,9 @@ builder.Services.AddAuthentication(options =>
     {
         ValidateIssuer = true,
         ValidateAudience = true,
-
+        ValidAudience = configuration["JWT: ValidAudience"],
+        ValidIssuer = configuration["JWT:ValidIssuer"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
     };
 });
 
