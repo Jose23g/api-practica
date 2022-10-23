@@ -1,11 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Modelo;
-using Org.BouncyCastle.Security;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BL
 {
@@ -21,11 +15,11 @@ namespace BL
 
         public async Task<Response> Registrar(RegisterModel UserNuevo)
         {
-            
+
             var usuarioExiste = await _userManager.FindByNameAsync(UserNuevo.Username);
             if (usuarioExiste != null)
             {
-                return new Response(){ code = false, Message = "El usuario ya existe", Status = "Error" };
+                return new Response() { code = false, Message = "El usuario ya existe", Status = "Error" };
             }
             Usuario usuario = new Usuario()
             {
@@ -38,28 +32,28 @@ namespace BL
 
             if (!Resultado.Succeeded)
             {
-                return new Response() { code = false, Message = "Error al crear usuario, Intentelo de nuevo", Status ="Error"};
+                return new Response() { code = false, Message = "Error al crear usuario, Intentelo de nuevo", Status = "Error" };
             }
-  
-            return new Response() { code=true, Message="Usuario creado con exito", Status= "Success" };
+
+            return new Response() { code = true, Message = "Usuario creado con exito", Status = "Success" };
         }
 
         public async Task<Response> LoginUsuario(RegisterModel usuariologin)
         {
             var user = await _userManager.FindByNameAsync(usuariologin.Username);
-            
-                if (user != null && await _userManager.CheckPasswordAsync(user, usuariologin.Password))
-                {
-                    return new Response() { code = true, Message = "Perfecto metido en el sistema", Status = "Success" };
-                }else
+
+            if (user != null && await _userManager.CheckPasswordAsync(user, usuariologin.Password))
             {
-                return new Response() { code = false, Message ="Algo ocurrio", Status = "Error" };
+                return new Response() { code = true, Message = "Perfecto metido en el sistema", Status = "Success" };
             }
-           
-   
+            else
+            {
+                return new Response() { code = false, Message = "Algo ocurrio", Status = "Error" };
             }
 
 
         }
+
+
+    }
 }
- 

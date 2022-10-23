@@ -7,7 +7,7 @@ namespace DA
     public class ContextoDeBasedeDatos : IdentityDbContext<Usuario>
     {
         public DbSet<Album> Album { get; set; }
-      
+
         public ContextoDeBasedeDatos(DbContextOptions<ContextoDeBasedeDatos> opciones) : base(opciones)
         {
 

@@ -7,6 +7,7 @@ using Modelo;
 
 namespace api_practica.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PruebaController : ControllerBase
