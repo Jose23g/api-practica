@@ -43,7 +43,7 @@ namespace api_practica.Controllers
                 {
                     authClaims.Add(new Claim(ClaimTypes.Role, userRole));
                 }
-
+                
                 var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
                 DateTime tiempo = DateTime.Now;
                 tiempo = tiempo.AddHours(1);

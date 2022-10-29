@@ -12,7 +12,7 @@ namespace BL
         {
             this._userManager = userManager;
         }
-
+       
         public async Task<Response> Registrar(RegisterModel UserNuevo)
         {
 
