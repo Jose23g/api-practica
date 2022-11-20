@@ -4,7 +4,7 @@ using Modelo;
 
 namespace DA
 {
-    public class ContextoDeBasedeDatos : IdentityDbContext<Usuario>
+    public class ContextoDeBasedeDatos : DbContext
     {
         public DbSet<Album> Album { get; set; }
 
