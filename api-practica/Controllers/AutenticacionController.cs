@@ -13,11 +13,11 @@ namespace api_practica.Controllers
     [ApiController]
     public class AutenticacionController : ControllerBase
     {
-        private readonly UserManager<Usuario> userManager;
+        private readonly UserManager<user> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IConfiguration _configuration;
         private readonly IRepositorioUsuarios _repositorioUsuarios;
-        public AutenticacionController(UserManager<Usuario> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration, IRepositorioUsuarios repositorioUsuarios)
+        public AutenticacionController(UserManager<user> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration, IRepositorioUsuarios repositorioUsuarios)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
@@ -29,7 +29,7 @@ namespace api_practica.Controllers
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            var user = await userManager.FindByNameAsync(model.Username);
+            var user = await userManager.FindByNameAsync(model.Username); 
             if (user != null && await userManager.CheckPasswordAsync(user, model.Password))
             {
 
@@ -39,10 +39,10 @@ namespace api_practica.Controllers
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 };
 
-                foreach (var userRole in await userManager.GetRolesAsync(user))
+               /* foreach (var userRole in await userManager.GetRolesAsync(user))
                 {
                     authClaims.Add(new Claim(ClaimTypes.Role, userRole));
-                }
+                }*/
                 
                 var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
                 DateTime tiempo = DateTime.Now;
@@ -74,7 +74,7 @@ namespace api_practica.Controllers
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response() { Status = "Error", Message = "User already exists!" });
 
-            Usuario user = new Usuario()
+            user user = new user()
             {
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
@@ -96,7 +96,7 @@ namespace api_practica.Controllers
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
 
-            Usuario user = new Usuario()
+            user user = new user()
             {
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
@@ -106,14 +106,14 @@ namespace api_practica.Controllers
             if (!result.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
 
-            if (!await roleManager.RoleExistsAsync(RolesUsuario.Admin))
-                await roleManager.CreateAsync(new IdentityRole(RolesUsuario.Admin));
-            if (!await roleManager.RoleExistsAsync(RolesUsuario.User))
-                await roleManager.CreateAsync(new IdentityRole(RolesUsuario.User));
+            if (!await roleManager.RoleExistsAsync(Roles.Admin))
+                await roleManager.CreateAsync(new IdentityRole(Roles.Admin));
+            if (!await roleManager.RoleExistsAsync(Roles.User))
+                await roleManager.CreateAsync(new IdentityRole(Roles.User));
 
-            if (await roleManager.RoleExistsAsync(RolesUsuario.Admin))
+            if (await roleManager.RoleExistsAsync(Roles.Admin))
             {
-                await userManager.AddToRoleAsync(user, RolesUsuario.Admin);
+                await userManager.AddToRoleAsync(user, Roles.Admin);
             }
 
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });

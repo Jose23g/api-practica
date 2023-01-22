@@ -1,5 +1,6 @@
 ﻿using DA;
 using Modelo;
+using System.Data.Entity.Core.Common.CommandTrees;
 
 namespace BL
 {
@@ -32,9 +33,10 @@ namespace BL
 
         public List<Album> Obtenertodo()
         {
-            List<Album> albums;
-            albums = ElContextoBD.Album.ToList();
-            return albums;
+         // List<Album> albums = new Album();
+            //albums = ElContextoBD.Album.ToList();
+
+            return null;
         }
 
 

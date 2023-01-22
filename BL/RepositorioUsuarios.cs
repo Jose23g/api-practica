@@ -5,10 +5,10 @@ namespace BL
 {
     public class RepositorioUsuarios : IRepositorioUsuarios
     {
-        private readonly UserManager<Usuario> _userManager;
+        private readonly UserManager<user> _userManager;
         private readonly RoleManager<IdentityRole> roleManager;
 
-        public RepositorioUsuarios(UserManager<Usuario> userManager)
+        public RepositorioUsuarios(UserManager<user> userManager)
         {
             this._userManager = userManager;
         }
@@ -21,20 +21,20 @@ namespace BL
             {
                 return new Response() { code = false, Message = "El usuario ya existe", Status = "Error" };
             }
-            Usuario usuario = new Usuario()
+          /*  user usuario = new user()
             {
                 Email = UserNuevo.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = UserNuevo.Username
             };
-
+          
             var Resultado = await _userManager.CreateAsync(usuario, UserNuevo.Password);
 
             if (!Resultado.Succeeded)
             {
                 return new Response() { code = false, Message = "Error al crear usuario, Intentelo de nuevo", Status = "Error" };
             }
-
+          */
             return new Response() { code = true, Message = "Usuario creado con exito", Status = "Success" };
         }
 

@@ -26,7 +26,7 @@ builder.Services.AddDbContext<ContextoDeBasedeDatos>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
-builder.Services.AddIdentity<Usuario, IdentityRole>(x =>
+builder.Services.AddIdentity<user, IdentityRole>(x =>
 {
     x.Password.RequireDigit = false;
     x.Password.RequireLowercase = false;
@@ -39,6 +39,8 @@ builder.Services.AddIdentity<Usuario, IdentityRole>(x =>
 
 builder.Services.AddScoped<IRepositorio, Repositorio>();
 builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuarios>();
+builder.Services.AddScoped<IRepositorioProveedor, RepositorioProveedor>();
+
 var configuration = builder.Configuration;
 
 // Adding Authentication  
