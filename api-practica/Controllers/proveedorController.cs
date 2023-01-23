@@ -26,13 +26,13 @@ namespace api_practica.Controllers
         }
 
         [HttpGet("{id}")]
-        public List<Proveedores> obtenerProveedor(int id)
+        public Proveedores obtenerProveedor(int id)
         {
-            List<Proveedores>lista = repositorio.listaProveedor();
-            return lista;
+           Proveedores nuevoproveedor = new Proveedores();
+            return nuevoproveedor;
         }
 
-        // POST api/<proveedorController>
+      
         [HttpPost]
         public IActionResult nuevoProveedor([FromBody] Proveedores proveedores)
         {
@@ -46,13 +46,12 @@ namespace api_practica.Controllers
             }
         }
 
-        // PUT api/<proveedorController>/5
+        
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<proveedorController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

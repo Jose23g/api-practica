@@ -1,4 +1,5 @@
-﻿using Modelo;
+﻿using DA;
+using Modelo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,17 +8,31 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    internal class RepositorioProductos : IRepositorioProductos
-
+    public class RepositorioProductos : IRepositorioProductos
     {
+        private ContextoDeBasedeDatos ElContextoBD;
+
+        public RepositorioProductos(ContextoDeBasedeDatos _elContextoBD)
+        {
+            ElContextoBD= _elContextoBD;
+        }
+
         public List<Producto> listaProductos()
         {
-            throw new NotImplementedException();
+           return ElContextoBD.Producto.ToList();
         }
 
         public Producto nuevoProducto(Producto producto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ElContextoBD.Producto.Add(producto);
+                ElContextoBD.SaveChanges();
+                return producto;
+            }catch(Exception ex)
+            {
+                return producto;
+            }
         }
     }
 }

@@ -11,5 +11,7 @@ namespace BL
     {
         Producto nuevoProducto(Producto producto);
         List<Producto> listaProductos();
+        Presentacion getIdPrecentacion(string nombre);
+        Unidad_Medida getIdUnidad_Medida(string nombre);
     }
 }

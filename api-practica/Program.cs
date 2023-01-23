@@ -39,6 +39,8 @@ builder.Services.AddIdentity<user, IdentityRole>(x =>
 builder.Services.AddScoped<IRepositorio, Repositorio>();
 builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuarios>();
 builder.Services.AddScoped<IRepositorioProveedor, RepositorioProveedor>();
+builder.Services.AddScoped<IRepositorioProductos, RepositorioProductos>();
+
 
 var configuration = builder.Configuration;
 
