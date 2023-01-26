@@ -58,18 +58,32 @@ namespace BL
             return unidad;
         }
 
+        public List<Presentacion> listaPresentaciones()
+        {
+            return  ElContextoBD.Presentacion.ToList();
+        }
+
         public List<Producto> listaProductos()
         {
            return ElContextoBD.Producto.ToList();
         }
 
-        public Producto nuevoProducto(Producto producto)
+        public List<Unidad_Medida> listaUnidades()
+        {
+           return ElContextoBD.Unidad_Medida.ToList();
+        }
+
+        public Producto nuevoProducto(Producto producto, string presentacion, string unidad)
         {
             try
             {
+                producto.id_presentacion = getIdPrecentacion(presentacion).id_presentacion;
+                producto.id_unidad = getIdUnidad_Medida(unidad).id_unidad;
+
                 ElContextoBD.Producto.Add(producto);
                 ElContextoBD.SaveChanges();
                 return producto;
+
             }catch(Exception ex)
             {
                 return producto;

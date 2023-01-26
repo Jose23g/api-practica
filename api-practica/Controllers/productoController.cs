@@ -23,6 +23,18 @@ namespace api_practica.Controllers
         {
             return repositorioProductos.listaProductos();
         }
+        [Route("list/presentacion")]
+        [HttpGet]
+        public IEnumerable<Presentacion> listaPresentacion()
+        {
+            return repositorioProductos.listaPresentaciones();
+        }
+        [Route("list/unidades") ]
+        [HttpGet]
+        public IEnumerable<Unidad_Medida> listaUnidades()
+        {
+            return repositorioProductos.listaUnidades();
+        }
 
         // GET api/<productoController>/5
         [HttpGet("{id}")]
@@ -33,12 +45,13 @@ namespace api_practica.Controllers
 
         // POST api/<productoController>
         [HttpPost]
-        public IActionResult Post([FromBody] Producto nuevoProducto)
+        public IActionResult Post([FromBody] Producto nuevoProducto, string presentacion, string unidad)
         {
             try
             {
-                repositorioProductos.nuevoProducto(nuevoProducto);
+                repositorioProductos.nuevoProducto(nuevoProducto, presentacion, unidad);
                 return Ok(nuevoProducto);
+
             }catch(Exception ex)
             {
                 return BadRequest(ex.Message);

@@ -9,9 +9,12 @@ namespace BL
 {
     public interface IRepositorioProductos
     {
-        Producto nuevoProducto(Producto producto);
+        Producto nuevoProducto(Producto producto, string presentacion, string unidad);
         List<Producto> listaProductos();
         Presentacion getIdPrecentacion(string nombre);
         Unidad_Medida getIdUnidad_Medida(string nombre);
+        List<Presentacion> listaPresentaciones();
+        List<Unidad_Medida> listaUnidades();
+
     }
 }
