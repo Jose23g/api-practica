@@ -73,12 +73,11 @@ namespace BL
            return ElContextoBD.Unidad_Medida.ToList();
         }
 
-        public Producto nuevoProducto(Producto producto, string presentacion, string unidad)
+        public Producto nuevoProducto(Producto producto)
         {
             try
             {
-                producto.id_presentacion = getIdPrecentacion(presentacion).id_presentacion;
-                producto.id_unidad = getIdUnidad_Medida(unidad).id_unidad;
+             
 
                 ElContextoBD.Producto.Add(producto);
                 ElContextoBD.SaveChanges();

@@ -45,11 +45,11 @@ namespace api_practica.Controllers
 
         // POST api/<productoController>
         [HttpPost]
-        public IActionResult Post([FromBody] Producto nuevoProducto, string presentacion, string unidad)
+        public IActionResult Post([FromBody] Producto nuevoProducto)
         {
             try
             {
-                repositorioProductos.nuevoProducto(nuevoProducto, presentacion, unidad);
+                repositorioProductos.nuevoProducto(nuevoProducto);
                 return Ok(nuevoProducto);
 
             }catch(Exception ex)

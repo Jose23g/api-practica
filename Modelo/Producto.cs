@@ -12,9 +12,12 @@ namespace Modelo
         [Key]
         public int id_producto { get; set; }
         public int codigo_producto { get; set; }
-        public int id_presentacion { get; set; }
-        public int id_unidad { get; set; }
         public string nombre { get; set; }
         public float precio_venta { get; set; }
+
+        /*public int id_presentacion { get; set; }*/
+        public Presentacion presentacion { get; set; }
+        public Unidad_Medida unidad_medida { get; set; }
+        /* public int id_unidad { get; set; }*/
     }
 }
