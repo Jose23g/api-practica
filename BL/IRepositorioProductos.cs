@@ -1,9 +1,4 @@
 ﻿using Modelo;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BL
 {
@@ -13,6 +8,8 @@ namespace BL
         List<Producto> listaProductos();
         List<Presentacion> listaPresentaciones();
         List<Unidad_Medida> listaUnidades();
+        Unidad_Medida existeUnidad_Medida(Unidad_Medida unidad_Medida);
+        Presentacion existePresentacion(Presentacion presentacion);
 
     }
 }

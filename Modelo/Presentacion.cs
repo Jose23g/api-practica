@@ -12,6 +12,7 @@ namespace Modelo
         [Key]
         public int id_presentacion { get; set; }
         public string Nombre { get; set; }
+
     }
 }
  
