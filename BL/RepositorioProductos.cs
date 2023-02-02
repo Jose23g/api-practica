@@ -1,4 +1,5 @@
 ﻿using DA;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Modelo;
 using MySqlX.XDevAPI.Common;
@@ -81,6 +82,41 @@ namespace BL
                 
                 return producto;
             }
+        }
+
+        public Producto asociarProductoProveeddor(int id_producto, Proveedores proveedor)
+        {
+            try
+            {
+                Producto producto = buscarProducto(id_producto);
+                producto.proveedores.Add(proveedor);
+                ElContextoBD.Producto.Update(producto);
+                ElContextoBD.SaveChanges();
+                return producto;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public Producto buscarProducto(int id_producto)
+        {
+            try
+            {
+                Producto producto = new Producto();
+                producto = ElContextoBD.Producto.Find(id_producto);
+                if(producto == null)
+                {
+                    throw new Exception("Producto no encontrado o no exite");
+                }
+                return producto;
+
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+           
         }
     }
 }

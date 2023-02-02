@@ -17,19 +17,21 @@ namespace api_practica.Controllers
             repositorioProductos= _repositorioProductos;
         }
 
-       
+        
         [HttpGet]
-        public IEnumerable<Producto> Get()
+        public IEnumerable<Producto> listaProductos()
         {
             return repositorioProductos.listaProductos();
         }
+        
         [Route("list/presentacion")]
         [HttpGet]
         public IEnumerable<Presentacion> listaPresentacion()
         {
             return repositorioProductos.listaPresentaciones();
         }
-        [Route("list/unidades") ]
+        
+        [Route("list/unidades")]
         [HttpGet]
         public IEnumerable<Unidad_Medida> listaUnidades()
         {
@@ -38,11 +40,22 @@ namespace api_practica.Controllers
 
         // GET api/<productoController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult buscarPoducto(int id)
         {
-            return "value";
+            try
+            {
+
+                Producto producto = repositorioProductos.buscarProducto(id);
+                return Ok(producto);
+
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
+        
         // POST api/<productoController>
         [HttpPost]
         public IActionResult Post([FromBody] Producto nuevoProducto)
