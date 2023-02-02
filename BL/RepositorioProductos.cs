@@ -1,14 +1,6 @@
 ﻿using DA;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Modelo;
-using MySqlX.XDevAPI.Common;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BL
 {
@@ -18,25 +10,66 @@ namespace BL
 
         public RepositorioProductos(ContextoDeBasedeDatos _elContextoBD)
         {
-            ElContextoBD= _elContextoBD;
+            ElContextoBD = _elContextoBD;
         }
 
-        public List<Presentacion> listaPresentaciones()
+        public Producto nuevoProducto(Producto producto)
         {
-            return  ElContextoBD.Presentacion.ToList();
+            try
+            {
+                Producto nuevoProducto = producto;
+
+                nuevoProducto.Presentacion = existePresentacion(producto.Presentacion);
+                nuevoProducto.Unidad_Medida = existeUnidad_Medida(producto.Unidad_Medida);
+
+                ElContextoBD.Producto.Add(nuevoProducto);
+                ElContextoBD.SaveChanges();
+                return producto;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
 
         public List<Producto> listaProductos()
         {
             //Para mostrar los datos relacionados
-           return ElContextoBD.Producto.Include("Presentacion").Include("Unidad_Medida").ToList();
+            return ElContextoBD.Producto.Include("Presentacion").Include("Unidad_Medida").ToList();
+        }
+
+        public Producto buscarProducto(int id_producto)
+        {
+            try
+            {
+                Producto producto = new Producto();
+                producto = ElContextoBD.Producto.Find(id_producto);
+                if (producto == null)
+                {
+                    throw new Exception("Producto no encontrado o no exite");
+                }
+                return producto;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
+        public List<Presentacion> listaPresentaciones()
+        {
+            return ElContextoBD.Presentacion.ToList();
         }
 
         public List<Unidad_Medida> listaUnidades()
         {
-           return ElContextoBD.Unidad_Medida.ToList();
+            return ElContextoBD.Unidad_Medida.ToList();
         }
-       
+
         public Presentacion existePresentacion(Presentacion presentacion)
         {
             Presentacion resultado = ElContextoBD.Presentacion.Where(x => x.Nombre.Equals(presentacion.Nombre)).FirstOrDefault();
@@ -65,25 +98,6 @@ namespace BL
             return unidad_Medida;
         }
 
-        public Producto nuevoProducto(Producto producto)
-        {
-            try
-            {
-                Producto nuevoProducto = producto;
-
-                nuevoProducto.Presentacion = existePresentacion(producto.Presentacion);
-                nuevoProducto.Unidad_Medida = existeUnidad_Medida(producto.Unidad_Medida);
-
-               ElContextoBD.Producto.Add(nuevoProducto);
-               ElContextoBD.SaveChanges();
-               return producto;
-                 
-            }catch(Exception ex)
-            {
-                
-                return producto;
-            }
-        }
 
         public Producto asociarProductoProveeddor(int id_producto, Proveedores proveedor)
         {
@@ -95,29 +109,11 @@ namespace BL
                 ElContextoBD.SaveChanges();
                 return producto;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
 
-        public Producto buscarProducto(int id_producto)
-        {
-            try
-            {
-                Producto producto = new Producto();
-                producto = ElContextoBD.Producto.Find(id_producto);
-                if(producto == null)
-                {
-                    throw new Exception("Producto no encontrado o no exite");
-                }
-                return producto;
-
-            }catch(Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-           
-        }
     }
 }

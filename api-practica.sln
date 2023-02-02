@@ -5,11 +5,11 @@ VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api-practica", "api-practica\api-practica.csproj", "{EFCB9230-F001-4495-9C40-BC3092B7E117}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelo", "Modelo\Modelo.csproj", "{EFF5F7CD-54E7-4F5A-81C3-F581C73FD81D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modelo", "Modelo\Modelo.csproj", "{EFF5F7CD-54E7-4F5A-81C3-F581C73FD81D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{89C8D3BB-088C-43C0-B42D-A657318181BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{89C8D3BB-088C-43C0-B42D-A657318181BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DA", "DA\DA.csproj", "{55D400EC-BEE7-42BA-B1A3-D0CDC8DD746A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DA", "DA\DA.csproj", "{55D400EC-BEE7-42BA-B1A3-D0CDC8DD746A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

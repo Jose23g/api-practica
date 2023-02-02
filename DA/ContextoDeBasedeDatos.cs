@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Modelo;
-using Org.BouncyCastle.Asn1.Mozilla;
 
 namespace DA
 {

@@ -18,9 +18,10 @@ namespace BL
             try
             {
                 return ElContextoBD.Proveedores.ToList();
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
-             return new List<Proveedores>();
+                return new List<Proveedores>();
             }
         }
 

@@ -29,7 +29,7 @@ namespace api_practica.Controllers
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            var user = await userManager.FindByNameAsync(model.Username); 
+            var user = await userManager.FindByNameAsync(model.Username);
             if (user != null && await userManager.CheckPasswordAsync(user, model.Password))
             {
 
@@ -39,11 +39,11 @@ namespace api_practica.Controllers
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 };
 
-               /* foreach (var userRole in await userManager.GetRolesAsync(user))
-                {
-                    authClaims.Add(new Claim(ClaimTypes.Role, userRole));
-                }*/
-                
+                /* foreach (var userRole in await userManager.GetRolesAsync(user))
+                 {
+                     authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+                 }*/
+
                 var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
                 DateTime tiempo = DateTime.Now;
                 tiempo = tiempo.AddHours(1);

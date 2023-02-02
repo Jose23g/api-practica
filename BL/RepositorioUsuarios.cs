@@ -12,7 +12,7 @@ namespace BL
         {
             this._userManager = userManager;
         }
-       
+
         public async Task<Response> Registrar(RegisterModel UserNuevo)
         {
 
@@ -21,20 +21,20 @@ namespace BL
             {
                 return new Response() { code = false, Message = "El usuario ya existe", Status = "Error" };
             }
-          /*  user usuario = new user()
-            {
-                Email = UserNuevo.Email,
-                SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = UserNuevo.Username
-            };
-          
-            var Resultado = await _userManager.CreateAsync(usuario, UserNuevo.Password);
+            /*  user usuario = new user()
+              {
+                  Email = UserNuevo.Email,
+                  SecurityStamp = Guid.NewGuid().ToString(),
+                  UserName = UserNuevo.Username
+              };
 
-            if (!Resultado.Succeeded)
-            {
-                return new Response() { code = false, Message = "Error al crear usuario, Intentelo de nuevo", Status = "Error" };
-            }
-          */
+              var Resultado = await _userManager.CreateAsync(usuario, UserNuevo.Password);
+
+              if (!Resultado.Succeeded)
+              {
+                  return new Response() { code = false, Message = "Error al crear usuario, Intentelo de nuevo", Status = "Error" };
+              }
+            */
             return new Response() { code = true, Message = "Usuario creado con exito", Status = "Success" };
         }
 

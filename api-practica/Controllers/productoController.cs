@@ -14,73 +14,50 @@ namespace api_practica.Controllers
 
         public productoController(IRepositorioProductos _repositorioProductos)
         {
-            repositorioProductos= _repositorioProductos;
+            repositorioProductos = _repositorioProductos;
         }
 
-        
+
         [HttpGet]
         public IEnumerable<Producto> listaProductos()
         {
             return repositorioProductos.listaProductos();
         }
-        
-        [Route("list/presentacion")]
-        [HttpGet]
-        public IEnumerable<Presentacion> listaPresentacion()
-        {
-            return repositorioProductos.listaPresentaciones();
-        }
-        
-        [Route("list/unidades")]
-        [HttpGet]
-        public IEnumerable<Unidad_Medida> listaUnidades()
-        {
-            return repositorioProductos.listaUnidades();
-        }
 
-        // GET api/<productoController>/5
-        [HttpGet("{id}")]
-        public ActionResult buscarPoducto(int id)
-        {
-            try
-            {
 
-                Producto producto = repositorioProductos.buscarProducto(id);
-                return Ok(producto);
-
-            }catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-        }
-
-        
-        // POST api/<productoController>
         [HttpPost]
-        public IActionResult Post([FromBody] Producto nuevoProducto)
+        public IActionResult agregarProducto([FromBody] Producto nuevoProducto)
         {
             try
             {
                 repositorioProductos.nuevoProducto(nuevoProducto);
                 return Ok(nuevoProducto);
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
 
-        // PUT api/<productoController>/5
+
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult asociarProveedor(int id, [FromBody] Proveedores value)
         {
+
+            try
+            {
+                Producto producto = repositorioProductos.asociarProductoProveeddor(id, value);
+                return Ok(producto);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
-        // DELETE api/<productoController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+
     }
 }

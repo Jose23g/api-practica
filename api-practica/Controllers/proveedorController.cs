@@ -14,7 +14,7 @@ namespace api_practica.Controllers
 
         public proveedorController(IRepositorioProveedor repo)
         {
-            repositorio= repo;
+            repositorio = repo;
         }
 
 
@@ -28,11 +28,11 @@ namespace api_practica.Controllers
         [HttpGet("{id}")]
         public Proveedores obtenerProveedor(int id)
         {
-           Proveedores nuevoproveedor = new Proveedores();
+            Proveedores nuevoproveedor = new Proveedores();
             return nuevoproveedor;
         }
 
-      
+
         [HttpPost]
         public IActionResult nuevoProveedor([FromBody] Proveedores proveedores)
         {
@@ -40,13 +40,14 @@ namespace api_practica.Controllers
             {
                 repositorio.nuevoProveedor(proveedores);
                 return Ok();
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-             return StatusCode(500, ex.Message);
+                return StatusCode(500, ex.Message);
             }
         }
 
-        
+
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
