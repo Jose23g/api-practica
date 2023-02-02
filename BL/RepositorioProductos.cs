@@ -28,7 +28,8 @@ namespace BL
 
         public List<Producto> listaProductos()
         {
-           return ElContextoBD.Producto.ToList();
+            //Para mostrar los datos relacionados
+           return ElContextoBD.Producto.Include("Presentacion").Include("Unidad_Medida").ToList();
         }
 
         public List<Unidad_Medida> listaUnidades()
@@ -70,7 +71,7 @@ namespace BL
             {
                 Producto nuevoProducto = producto;
 
-                nuevoProducto.presentacion = existePresentacion(producto.presentacion);
+                nuevoProducto.Presentacion = existePresentacion(producto.Presentacion);
                 nuevoProducto.Unidad_Medida = existeUnidad_Medida(producto.Unidad_Medida);
 
                ElContextoBD.Producto.Add(nuevoProducto);
