@@ -37,7 +37,7 @@ namespace BL
         public List<Producto> listaProductos()
         {
             //Para mostrar los datos relacionados
-            return ElContextoBD.Producto.Include("Presentacion").Include("Unidad_Medida").ToList();
+            return ElContextoBD.Producto.Include(x => x.Proveedores).Include(x=> x.Presentacion).Include(x => x.Unidad_Medida).ToList();
         }
 
         public Producto buscarProducto(int id_producto)
@@ -104,7 +104,7 @@ namespace BL
             try
             {
                 Producto producto = buscarProducto(id_producto);
-                producto.proveedores.Add(proveedor);
+                producto.Proveedores.Add(proveedor);
                 ElContextoBD.Producto.Update(producto);
                 ElContextoBD.SaveChanges();
                 return producto;

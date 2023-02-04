@@ -11,12 +11,16 @@ namespace Modelo
         public int codigo_producto { get; set; }
         public string nombre { get; set; }
         public float precio_venta { get; set; }
-        /* public int id_presentacion { get; set; }*/
+        public int id_presentacion { get; set; }
+       
         [ForeignKey("id_presentacion")]
         public virtual Presentacion Presentacion { get; set; }
-        /*public int id_unidad { get; set; }*/
+        public int id_unidad { get; set; }
+        
         [ForeignKey("id_unidad")]
         public virtual Unidad_Medida Unidad_Medida { get; set; }
-        public virtual ICollection<Proveedores> proveedores { get; set; }
+
+        [ForeignKey("id_proveedor")]
+        public virtual List<Proveedores> Proveedores { get; set; }
     }
 }
