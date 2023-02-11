@@ -39,7 +39,7 @@ namespace api_practica.Controllers
             try
             {
                 repositorio.nuevoProveedor(proveedores);
-                return Ok();
+                return Ok(proveedores);
             }
             catch (Exception ex)
             {

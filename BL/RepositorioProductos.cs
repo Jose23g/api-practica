@@ -37,7 +37,7 @@ namespace BL
         public List<Producto> listaProductos()
         {
             //Para mostrar los datos relacionados
-            return ElContextoBD.Producto.Include(x => x.Proveedores).Include(x=> x.Presentacion).Include(x => x.Unidad_Medida).ToList();
+            return ElContextoBD.Producto./*Include("Presentacion").Include("Unidad_Medida").*/ToList();
         }
 
         public Producto buscarProducto(int id_producto)
@@ -99,15 +99,20 @@ namespace BL
         }
 
 
-        public Producto asociarProductoProveeddor(int id_producto, Proveedores proveedor)
+        public Producto asociarProductoProveeddor(int id, List<Proveedores> proveedor)
         {
             try
             {
-                Producto producto = buscarProducto(id_producto);
-                producto.Proveedores.Add(proveedor);
-                ElContextoBD.Producto.Update(producto);
+                Producto nuevo = new Producto();
+                nuevo = buscarProducto(id);
+
+                foreach (Proveedores proveedores in proveedor)
+                {
+                    nuevo.Proveedores.Add(proveedores);
+                }
                 ElContextoBD.SaveChanges();
-                return producto;
+                return nuevo;
+
             }
             catch (Exception ex)
             {

@@ -42,13 +42,12 @@ namespace api_practica.Controllers
 
 
         [HttpPut("{id}")]
-        public ActionResult asociarProveedor(int id, [FromBody] Proveedores value)
+        public ActionResult asociarProveedor(int id, List<Proveedores> proveedores)
         {
 
             try
             {
-                Producto producto = repositorioProductos.asociarProductoProveeddor(id, value);
-                return Ok(producto);
+               return Ok(repositorioProductos.asociarProductoProveeddor(id, proveedores));
 
             }
             catch (Exception ex)

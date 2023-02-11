@@ -13,6 +13,24 @@ namespace BL
             ElContextoBD = elContextoBD;
         }
 
+        public Proveedores buscarProveedor(int id)
+        {
+            try
+            {
+                var proveedor = ElContextoBD.Proveedores.Find(id);
+                if (proveedor != null)
+                {
+                    return proveedor;
+                }
+                throw new Exception("Problema al encontrar al proveedor, revisa o intentalo más tarde");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
         public List<Proveedores> listaProveedor()
         {
             try
@@ -22,6 +40,20 @@ namespace BL
             catch (Exception ex)
             {
                 return new List<Proveedores>();
+            }
+        }
+
+        public Proveedores modificarProveedor(Proveedores proveedor)
+        {
+            try
+            {
+                ElContextoBD.Proveedores.Update(proveedor);
+                ElContextoBD.SaveChanges();
+                return proveedor;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
 
