@@ -105,6 +105,7 @@ namespace BL
             {
                 Producto nuevo = new Producto();
                 nuevo = buscarProducto(id);
+                nuevo.Proveedores = new List<Proveedores>();
 
                 foreach (Proveedores proveedores in proveedor)
                 {

@@ -20,6 +20,7 @@ namespace Modelo
         [ForeignKey("id_unidad")]
         public virtual Unidad_Medida Unidad_Medida { get; set; }
 
+        [ForeignKey("id_proveedor")]
         public virtual ICollection<Proveedores>? Proveedores { get; set;}
     }
 }
