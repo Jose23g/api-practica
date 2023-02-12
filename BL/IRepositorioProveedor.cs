@@ -8,5 +8,6 @@ namespace BL
         Proveedores buscarProveedor(int id);
         Proveedores modificarProveedor(Proveedores proveedor);
         List<Proveedores> listaProveedor();
+        Proveedores asociarProveedorProducto(int id, List<Producto> productos);
     }
 }

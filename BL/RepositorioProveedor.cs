@@ -63,5 +63,27 @@ namespace BL
             ElContextoBD.SaveChanges();
             return proveedor;
         }
+
+        Proveedores asociarProveedorProducto(int id, List<Producto> productos)
+        {
+            try
+            {
+                Proveedores nuevo = new Proveedores();
+                nuevo = buscarProveedor(id);
+                nuevo.Producto = new List<Producto>();
+
+                foreach (Producto proveedores in producto)
+                {
+                    nuevo.Producto.Add(proveedores);
+                }
+                ElContextoBD.SaveChanges();
+                return nuevo;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
