@@ -99,19 +99,19 @@ namespace BL
         }
 
 
-        public Producto asociarProductoProveeddor(int id, List<Proveedores> proveedor)
+        public Producto asociarProductoProveeddor(int id, List<int> proveedor)
         {
             try
             {
                 Producto nuevo = new Producto();
-                nuevo = buscarProducto(id);
+               /* nuevo = buscarProducto(id);
                 nuevo.Proveedores = new List<Proveedores>();
 
                 foreach (Proveedores proveedores in proveedor)
                 {
                     nuevo.Proveedores.Add(proveedores);
                 }
-                ElContextoBD.SaveChanges();
+                ElContextoBD.SaveChanges();*/
                 return nuevo;
 
             }

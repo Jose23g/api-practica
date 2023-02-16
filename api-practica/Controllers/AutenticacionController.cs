@@ -76,8 +76,13 @@ namespace api_practica.Controllers
 
             user user = new user()
             {
+                nombre1 = model.nombre1,
+                nombre2 = model.nombre2,
+                apellido1 = model.apellido1,
+                apellido2 = model.apellido2,
+                cedula = model.cedula,
                 Email = model.Email,
-                SecurityStamp = Guid.NewGuid().ToString(),
+                /*SecurityStamp = Guid.NewGuid().ToString(),*/
                 UserName = model.Username
             };
 

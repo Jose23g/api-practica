@@ -42,7 +42,7 @@ namespace api_practica.Controllers
 
 
         [HttpPut("{id}")]
-        public ActionResult asociarProveedor(int id, List<Proveedores> proveedores)
+        public ActionResult asociarProveedor(int id, List<int> proveedores)
         {
 
             try

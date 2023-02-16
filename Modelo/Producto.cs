@@ -4,8 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Modelo
 {
     [Table("Producto")]
-    public class Producto
+    public partial class Producto
     {
+        public Producto() { 
+        this.ProductoProveedores = new HashSet<ProductoProveedores>();
+        }
+
         [Key]
         public int id_producto { get; set; }
         public int codigo_producto { get; set; }
@@ -14,13 +18,13 @@ namespace Modelo
         public int id_presentacion { get; set; }
 
         [ForeignKey("id_presentacion")]
-        public virtual Presentacion Presentacion { get; set; }
+        public virtual Presentacion? Presentacion { get; set; }
         public int id_unidad { get; set; }
 
         [ForeignKey("id_unidad")]
-        public virtual Unidad_Medida Unidad_Medida { get; set; }
+        public virtual Unidad_Medida? Unidad_Medida { get; set; }
 
         [ForeignKey("id_proveedor")]
-        public virtual ICollection<Proveedores>? Proveedores { get; set;}
+        public virtual ICollection<ProductoProveedores>? ProductoProveedores { get; set;}
     }
 }

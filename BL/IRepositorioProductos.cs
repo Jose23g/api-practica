@@ -5,7 +5,7 @@ namespace BL
     public interface IRepositorioProductos
     {
         Producto nuevoProducto(Producto producto);
-        Producto asociarProductoProveeddor(int id, List<Proveedores> proveedor);
+        Producto asociarProductoProveeddor(int id, List<int> proveedor);
         Producto buscarProducto(int id_producto);
         List<Producto> listaProductos();
         List<Presentacion> listaPresentaciones();

@@ -64,17 +64,17 @@ namespace BL
             return proveedor;
         }
 
-        Proveedores asociarProveedorProducto(int id, List<Producto> productos)
+        public Proveedores asociarProveedorProducto(int id, List<int> productosId)
         {
             try
             {
                 Proveedores nuevo = new Proveedores();
                 nuevo = buscarProveedor(id);
-                nuevo.Producto = new List<Producto>();
-
-                foreach (Producto proveedores in producto)
+            
+                foreach (int i in productosId)
                 {
-                    nuevo.Producto.Add(proveedores);
+                  /*  ElContextoBD.ProductoProveedores.Add();*/
+     
                 }
                 ElContextoBD.SaveChanges();
                 return nuevo;
