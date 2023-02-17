@@ -12,6 +12,8 @@ namespace DA
         public DbSet<Presentacion> Presentacion { get; set; }
         public DbSet<Unidad_Medida> Unidad_Medida { get; set; }
         public DbSet<ProductoProveedores> ProductoProveedores { get; set; }
+        public DbSet<Pedido> Pedido { get; set; }
+        public DbSet<Detalle_pedido> Detalle_Pedidos { get; set; }
 
 
         public ContextoDeBasedeDatos(DbContextOptions<ContextoDeBasedeDatos> opciones) : base(opciones)

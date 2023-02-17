@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Modelo
 {
-    public partial class Detalle_pedido
+    public class Detalle_pedido
     {
-        int id_detalle { get; set; }
-        int id_pedido { get; set; }
-        int id_producto { get; set; }
-        int id_proveedor { get; set; }
-        int cantidad { get; set; }
-        double precio_compra { get; set;  }
+       public int id_detalle { get; set; }
+        public int id_pedido { get; set; }
+        public int id_producto { get; set; }
+        public int id_proveedor { get; set; }
+        public int cantidad { get; set; }
+        public double precio_compra { get; set;  }
     }
 }

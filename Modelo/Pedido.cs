@@ -10,7 +10,8 @@ namespace Modelo
     public class Pedido
     {
         public int id_pedido { get; set; }
-        public int id_usuario { get; set; }
+        public string id_usuario { get; set; }
+        public int id_estado { get; set; }
         public DateTime fecha { get; set; }
         public float total { get; set; }
 

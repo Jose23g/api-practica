@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DA;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Modelo;
 using System;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 
 namespace BL
 {
@@ -14,18 +16,21 @@ namespace BL
     {
         private readonly IHttpContextAccessor httpContext;
         private readonly UserManager<user> userManager;
+        private ContextoDeBasedeDatos ElContextoBD;
 
-        public RepositorioPedido(IHttpContextAccessor httpContext , UserManager<user> userManager)
+        public RepositorioPedido(IHttpContextAccessor httpContext, UserManager<user> userManager, ContextoDeBasedeDatos contextoDeBasedeDatos)
         {
             this.httpContext = httpContext;
             this.userManager = userManager;
+            this.ElContextoBD = contextoDeBasedeDatos;
         }
 
         public string getUserId()
         {
-            var userId = "";
+            var userId = httpContext.HttpContext.User.Identity.Name;
+            var id = ElContextoBD.user.Where(x => x.UserName == userId).Select(x => x.Id).FirstOrDefault();
 
-            return userId;
+            return id;
         }
 
         public Pedido crearPedido(List<Detalle_pedido> listaproductos)
@@ -37,7 +42,21 @@ namespace BL
                 {
                     throw new Exception("No se puede crear un pedido sin productos");
                 }
-                throw new Exception("No se ha implementado");
+               Pedido nuevoPedido = new Pedido();
+                nuevoPedido.id_usuario = getUserId();
+                nuevoPedido.id_estado = 1;
+                double total = 0;
+                
+                foreach (Detalle_pedido detalle in listaproductos)
+                {
+                    double subtotal = 0;
+                    subtotal = (detalle.cantidad * detalle.precio_compra);
+                    total = subtotal + total;
+                    nuevoPedido.Detalle_Pedidos.Add(detalle);
+                }
+                nuevoPedido.total = total;
+
+                return nuevoPedido;
             }
             catch(Exception ex)
             {

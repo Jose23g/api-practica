@@ -37,8 +37,8 @@ namespace api_practica.Controllers
         {
             try
             {
-                string hola = HttpContext.User.FindFirstValue("userID");
-                return Ok(new {userID = hola});
+              
+                return Ok(repositorioPedido.getUserId());
             }
             catch(Exception ex)
             {
@@ -47,7 +47,7 @@ namespace api_practica.Controllers
           
         }
 
-       
+      
         [HttpPost]
         public void Post([FromBody] string value)
         {
