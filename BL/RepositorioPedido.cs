@@ -1,6 +1,7 @@
 ﻿using DA;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Modelo;
 using System;
 using System.Collections.Generic;
@@ -27,13 +28,24 @@ namespace BL
 
         public string getUserId()
         {
-            var userId = httpContext.HttpContext.User.Identity.Name;
-            var id = ElContextoBD.user.Where(x => x.UserName == userId).Select(x => x.Id).FirstOrDefault();
+            try
+            {
+                var userId = httpContext.HttpContext.User.Identity.Name;
+                if (userId == null)
+                {
+                    throw new Exception("problemas de autenticacion de usario");
+                }
+                var id = ElContextoBD.user.Where(x => x.UserName == userId).Select(x => x.Id).FirstOrDefault();
+                return id;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
 
-            return id;
         }
 
-        public Pedido crearPedido(List<Detalle_pedido> listaproductos)
+        public async Task<Pedido> crearPedido(List<Detalle_pedido> listaproductos)
         {
             try
             {
@@ -45,6 +57,7 @@ namespace BL
                Pedido nuevoPedido = new Pedido();
                 nuevoPedido.id_usuario = getUserId();
                 nuevoPedido.id_estado = 1;
+                nuevoPedido.Detalle_pedido = new List<Detalle_pedido>();
                 double total = 0;
                 
                 foreach (Detalle_pedido detalle in listaproductos)
@@ -52,16 +65,23 @@ namespace BL
                     double subtotal = 0;
                     subtotal = (detalle.cantidad * detalle.precio_compra);
                     total = subtotal + total;
-                    nuevoPedido.Detalle_Pedidos.Add(detalle);
+                    nuevoPedido.Detalle_pedido.Add(detalle);
                 }
-                nuevoPedido.total = total;
-
+                nuevoPedido.total = (int)total;
+                await ElContextoBD.Pedido.AddAsync(nuevoPedido);
+                ElContextoBD.SaveChanges();
                 return nuevoPedido;
             }
             catch(Exception ex)
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public List<Pedido> obtenerPedidosProcesados()
+        {
+            List<Pedido> lista = ElContextoBD.Pedido.Include("Detalle_pedido").Where(x => x.id_estado == 1).ToList();
+            return lista;
         }
     }
 }

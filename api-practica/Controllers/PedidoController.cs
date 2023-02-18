@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Modelo;
 using System.Runtime.CompilerServices;
 using System.Security.Claims;
 
@@ -26,9 +27,11 @@ namespace api_practica.Controllers
 
 
         [HttpGet]
-        public IEnumerable<string> Get()
+        [Route("procedados")]
+        public IEnumerable<Pedido> obtener()
         {
-            return new string[] { "value1", "value2" };
+            List<Pedido> lista= repositorioPedido.obtenerPedidosProcesados();
+            return lista;
         }
 
         // GET api/<PedidoController>/5
@@ -49,8 +52,16 @@ namespace api_practica.Controllers
 
       
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] List<Detalle_pedido> value)
         {
+            try
+            {
+                Pedido nuevo = await repositorioPedido.crearPedido(value);
+                return Ok(nuevo);
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // PUT api/<PedidoController>/5

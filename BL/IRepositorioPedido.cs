@@ -11,7 +11,8 @@ namespace BL
 {
     public interface IRepositorioPedido
     {
-        Pedido crearPedido(List<Detalle_pedido> listaproductos);
+        Task<Pedido> crearPedido(List<Detalle_pedido> listaproductos);
+        List<Pedido> obtenerPedidosProcesados();
         string getUserId();
     }
 }
