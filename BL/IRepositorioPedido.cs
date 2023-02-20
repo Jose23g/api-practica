@@ -1,11 +1,4 @@
 ﻿using Modelo;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BL
 {
@@ -13,6 +6,11 @@ namespace BL
     {
         Task<Pedido> crearPedido(List<Detalle_pedido> listaproductos);
         List<Pedido> obtenerPedidosProcesados();
+        List<Pedido> obtenerPedidosEntregados();
+        List<Detalle_pedido> recuperarDetallePedido(int id);
+        Pedido buscarPedido(int id_pedido);
         string getUserId();
+        Pedido cambiaraEntregado(int id);
+        Entrada recibirPedido(int id, List<Detalle__entrada> detalle_entrada);
     }
 }

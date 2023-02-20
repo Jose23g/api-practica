@@ -1,5 +1,4 @@
 ﻿using DA;
-using Microsoft.EntityFrameworkCore;
 using Modelo;
 
 namespace BL
@@ -104,14 +103,14 @@ namespace BL
             try
             {
                 Producto nuevo = new Producto();
-               /* nuevo = buscarProducto(id);
-                nuevo.Proveedores = new List<Proveedores>();
+                /* nuevo = buscarProducto(id);
+                 nuevo.Proveedores = new List<Proveedores>();
 
-                foreach (Proveedores proveedores in proveedor)
-                {
-                    nuevo.Proveedores.Add(proveedores);
-                }
-                ElContextoBD.SaveChanges();*/
+                 foreach (Proveedores proveedores in proveedor)
+                 {
+                     nuevo.Proveedores.Add(proveedores);
+                 }
+                 ElContextoBD.SaveChanges();*/
                 return nuevo;
 
             }

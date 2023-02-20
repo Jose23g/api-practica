@@ -6,8 +6,9 @@ namespace Modelo
     [Table("Producto")]
     public partial class Producto
     {
-        public Producto() { 
-        this.ProductoProveedores = new HashSet<ProductoProveedores>();
+        public Producto()
+        {
+            this.ProductoProveedores = new HashSet<ProductoProveedores>();
         }
 
         [Key]
@@ -25,6 +26,6 @@ namespace Modelo
         public virtual Unidad_Medida? Unidad_Medida { get; set; }
 
         [ForeignKey("id_proveedor")]
-        public virtual ICollection<ProductoProveedores>? ProductoProveedores { get; set;}
+        public virtual ICollection<ProductoProveedores>? ProductoProveedores { get; set; }
     }
 }

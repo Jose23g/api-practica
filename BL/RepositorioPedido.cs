@@ -3,13 +3,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Modelo;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Schema;
 
 namespace BL
 {
@@ -38,11 +31,39 @@ namespace BL
                 var id = ElContextoBD.user.Where(x => x.UserName == userId).Select(x => x.Id).FirstOrDefault();
                 return id;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
 
+        }
+
+        public Pedido buscarPedido(int id_pedido)
+        {
+            try
+            {
+
+                Pedido resultado = ElContextoBD.Pedido.Find(id_pedido);
+                if (resultado == null)
+                {
+                    throw new Exception("No se encontró pedido");
+                }
+
+                return resultado;
+
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
+            }
+
+        }
+
+        public List<Detalle_pedido> recuperarDetallePedido(int id)
+        {
+            List<Detalle_pedido> detalle_Pedido = ElContextoBD.Detalle_pedido.Where(x => x.id_pedido == id).ToList();
+            return detalle_Pedido;
         }
 
         public async Task<Pedido> crearPedido(List<Detalle_pedido> listaproductos)
@@ -54,12 +75,12 @@ namespace BL
                 {
                     throw new Exception("No se puede crear un pedido sin productos");
                 }
-               Pedido nuevoPedido = new Pedido();
+                Pedido nuevoPedido = new Pedido();
                 nuevoPedido.id_usuario = getUserId();
                 nuevoPedido.id_estado = 1;
                 nuevoPedido.Detalle_pedido = new List<Detalle_pedido>();
                 double total = 0;
-                
+
                 foreach (Detalle_pedido detalle in listaproductos)
                 {
                     double subtotal = 0;
@@ -72,7 +93,7 @@ namespace BL
                 ElContextoBD.SaveChanges();
                 return nuevoPedido;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -80,8 +101,46 @@ namespace BL
 
         public List<Pedido> obtenerPedidosProcesados()
         {
-            List<Pedido> lista = ElContextoBD.Pedido.Include("Detalle_pedido").Where(x => x.id_estado == 1).ToList();
+            List<Pedido> lista = ElContextoBD.Pedido.AsSingleQuery().Include("Detalle_pedido").Where(x => x.id_estado == 1).ToList();
             return lista;
+        }
+
+        public List<Pedido> obtenerPedidosEntregados()
+        {
+            List<Pedido> lista = ElContextoBD.Pedido.AsSingleQuery().Include("Detalle_pedido").Where(x => x.id_estado == 1).ToList();
+            return lista;
+        }
+
+        public Pedido cambiaraEntregado(int id)
+        {
+            try
+            {
+                Pedido pedido = buscarPedido(id);
+                pedido.id_estado = 2;
+                ElContextoBD.Update(pedido);
+                ElContextoBD.SaveChanges();
+                return pedido;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public Entrada recibirPedido(int id, List<Detalle__entrada> detalle_entrada)
+        {
+            Pedido pedido = cambiaraEntregado(id);
+            pedido.Detalle_pedido = recuperarDetallePedido(id);
+
+            Entrada nueva = new Entrada();
+            nueva.id_pedido = pedido.id_pedido;
+            nueva.id_usuario = getUserId();
+            nueva.detalle_entrada = detalle_entrada;
+            ElContextoBD.Entrada.Add(nueva);
+
+            return nueva;
         }
     }
 }
+
+

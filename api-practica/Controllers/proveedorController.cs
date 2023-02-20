@@ -25,7 +25,7 @@ namespace api_practica.Controllers
             return lista;
         }
 
-        
+
         [HttpPost]
         public IActionResult nuevoProveedor([FromBody] Proveedores proveedores)
         {
@@ -40,7 +40,7 @@ namespace api_practica.Controllers
             }
         }
 
-        
+
         [HttpGet("{id}")]
         public Proveedores obtenerProveedor(int id)
         {
@@ -48,19 +48,20 @@ namespace api_practica.Controllers
             return nuevoproveedor;
         }
 
-        
+
         [HttpPut("{id}")]
         public IActionResult asociarProducto(int id, [FromBody] List<int> value)
         {
             try
             {
                 return Ok(repositorio.asociarProveedorProducto(id, value));
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }
         }
 
-        
+
     }
 }

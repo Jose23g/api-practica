@@ -70,11 +70,11 @@ namespace BL
             {
                 Proveedores nuevo = new Proveedores();
                 nuevo = buscarProveedor(id);
-            
+
                 foreach (int i in productosId)
                 {
-                  /*  ElContextoBD.ProductoProveedores.Add();*/
-     
+                    /*  ElContextoBD.ProductoProveedores.Add();*/
+
                 }
                 ElContextoBD.SaveChanges();
                 return nuevo;

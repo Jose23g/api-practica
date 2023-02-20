@@ -47,7 +47,7 @@ namespace api_practica.Controllers
 
             try
             {
-               return Ok(repositorioProductos.asociarProductoProveeddor(id, proveedores));
+                return Ok(repositorioProductos.asociarProductoProveeddor(id, proveedores));
 
             }
             catch (Exception ex)
