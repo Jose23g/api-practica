@@ -37,11 +37,11 @@ builder.Services.AddIdentity<user, IdentityRole>(x =>
     .AddEntityFrameworkStores<ContextoDeBasedeDatos>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddScoped<IRepositorio, Repositorio>();
 builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuarios>();
 builder.Services.AddScoped<IRepositorioProveedor, RepositorioProveedor>();
 builder.Services.AddScoped<IRepositorioProductos, RepositorioProductos>();
 builder.Services.AddScoped<IRepositorioPedido, RepositorioPedido>();
+builder.Services.AddScoped<IRepositorioInventario, RepositorioInventario>();
 
 
 var configuration = builder.Configuration;

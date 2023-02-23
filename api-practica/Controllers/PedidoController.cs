@@ -21,10 +21,17 @@ namespace api_practica.Controllers
 
         [HttpGet]
         [Route("procedados")]
-        public IEnumerable<Pedido> obtener()
+        public IEnumerable<Pedido> obtenerProcesados()
         {
             List<Pedido> lista = repositorioPedido.obtenerPedidosProcesados();
             return lista;
+        }
+
+        [HttpGet]
+        [Route("entregados")]
+        public IEnumerable<Pedido> obtenerEntregados()
+        {
+            return repositorioPedido.obtenerPedidosEntregados();
         }
 
         [HttpPost]

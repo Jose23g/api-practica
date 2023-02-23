@@ -164,6 +164,7 @@ namespace BL
         }
         
         public Inventario nuevoInventario(int id_producto, int cantidad)
+
         {
             try
             {
@@ -180,19 +181,7 @@ namespace BL
             {
                 throw new Exception(e.Message);
             }
-        }
-
-        public List<Inventario> listarInventario()
-        {
-            try
-            {
-                var lista = ElContextoBD.Inventario.ToList();
-                return lista;
-            }catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-        }
+        }  
     
     }
 }
