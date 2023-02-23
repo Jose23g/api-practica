@@ -19,7 +19,6 @@ namespace api_practica.Controllers
             repositorioPedido = repositorio;
         }
 
-
         [HttpGet]
         [Route("procedados")]
         public IEnumerable<Pedido> obtener()
@@ -57,13 +56,12 @@ namespace api_practica.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public IActionResult recibirPedido(int id, [FromBody] List<Detalle__entrada> value)
+        [HttpPut("{id_pedido}")]
+        public IActionResult recibirPedido(int id_pedido, [FromBody] List<Detalle__entrada> value)
         {
             try
             {
-                return Ok(repositorioPedido.recibirPedido(id, value));
-
+                return Ok(repositorioPedido.recibirPedido(id_pedido, value));
             }
             catch (Exception ex)
             {

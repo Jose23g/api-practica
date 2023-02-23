@@ -24,6 +24,7 @@ namespace BL
             try
             {
                 var userId = httpContext.HttpContext.User.Identity.Name;
+
                 if (userId == null)
                 {
                     throw new Exception("problemas de autenticacion de usario");
@@ -111,11 +112,11 @@ namespace BL
             return lista;
         }
 
-        public Pedido cambiaraEntregado(int id)
+        public Pedido cambiaraEntregado(int id_pedido)
         {
             try
             {
-                Pedido pedido = buscarPedido(id);
+                Pedido pedido = buscarPedido(id_pedido);
                 pedido.id_estado = 2;
                 ElContextoBD.Update(pedido);
                 ElContextoBD.SaveChanges();
@@ -127,19 +128,72 @@ namespace BL
             }
         }
 
-        public Entrada recibirPedido(int id, List<Detalle__entrada> detalle_entrada)
+        public Entrada recibirPedido(int id_pedido, List<Detalle__entrada> detalle_entrada)
         {
-            Pedido pedido = cambiaraEntregado(id);
-            pedido.Detalle_pedido = recuperarDetallePedido(id);
+            Pedido pedido = cambiaraEntregado(id_pedido);
+            pedido.Detalle_pedido = recuperarDetallePedido(id_pedido);
 
             Entrada nueva = new Entrada();
             nueva.id_pedido = pedido.id_pedido;
             nueva.id_usuario = getUserId();
             nueva.detalle_entrada = detalle_entrada;
             ElContextoBD.Entrada.Add(nueva);
+            ElContextoBD.SaveChanges();
+
+            foreach (Detalle__entrada detalle in detalle_entrada)
+            {
+                actualizarInventario(detalle.id_producto, detalle.cantidad);
+            }
 
             return nueva;
         }
+        
+        public Inventario actualizarInventario (int id_producto, int cantidad) { 
+
+            Inventario inventario = ElContextoBD.Inventario.Where(x => x.id_producto == id_producto).FirstOrDefault();
+            if (inventario == null)
+            {
+                return nuevoInventario(id_producto, cantidad);
+            }
+            int actual = inventario.total;
+            inventario.total = cantidad+actual;
+            ElContextoBD.Inventario.Update(inventario);
+            ElContextoBD.SaveChanges();
+
+           return inventario;
+        }
+        
+        public Inventario nuevoInventario(int id_producto, int cantidad)
+        {
+            try
+            {
+                Inventario nuevoInventario = new Inventario();
+                nuevoInventario.total = cantidad;
+                nuevoInventario.id_producto = id_producto;
+                ElContextoBD.Inventario.Add(nuevoInventario);
+                ElContextoBD.SaveChanges();
+
+                return nuevoInventario;
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public List<Inventario> listarInventario()
+        {
+            try
+            {
+                var lista = ElContextoBD.Inventario.ToList();
+                return lista;
+            }catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+    
     }
 }
 

@@ -16,6 +16,7 @@ namespace DA
         public DbSet<Detalle_pedido> Detalle_pedido { get; set; }
         public DbSet<Entrada> Entrada { get; set; }
         public DbSet<Detalle__entrada> Detalle_entrada { get; set; }
+        public DbSet<Inventario> Inventario { get; set; }
 
 
 
