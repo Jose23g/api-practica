@@ -11,6 +11,7 @@ namespace BL
     public class RepositorioInventario : IRepositorioInventario
     {
         private ContextoDeBasedeDatos ElContextoBD;
+       
         public RepositorioInventario(ContextoDeBasedeDatos basedeDatos) 
         {
         

@@ -9,6 +9,7 @@ namespace Modelo
         public int id_detalleE { get; set; }
         public int id_entrada { get; set; }
         public int id_producto { get; set; }
+        public int id_proveedor { get; set; }
         public int id_pedido { get; set; }
         public int cantidad { get; set; }
 

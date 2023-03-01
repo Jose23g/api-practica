@@ -108,7 +108,7 @@ namespace BL
 
         public List<Pedido> obtenerPedidosEntregados()
         {
-            List<Pedido> lista = ElContextoBD.Pedido.AsSingleQuery().Include("Detalle_pedido").Where(x => x.id_estado == 1).ToList();
+            List<Pedido> lista = ElContextoBD.Pedido.AsSingleQuery().Include("Detalle_pedido").Where(x => x.id_estado == 2).ToList();
             return lista;
         }
 
@@ -130,25 +130,34 @@ namespace BL
 
         public Entrada recibirPedido(int id_pedido, List<Detalle__entrada> detalle_entrada)
         {
-            Pedido pedido = cambiaraEntregado(id_pedido);
-            pedido.Detalle_pedido = recuperarDetallePedido(id_pedido);
-
-            Entrada nueva = new Entrada();
-            nueva.id_pedido = pedido.id_pedido;
-            nueva.id_usuario = getUserId();
-            nueva.detalle_entrada = detalle_entrada;
-            ElContextoBD.Entrada.Add(nueva);
-            ElContextoBD.SaveChanges();
-
-            foreach (Detalle__entrada detalle in detalle_entrada)
+            try
             {
-                actualizarInventario(detalle.id_producto, detalle.cantidad);
-            }
 
-            return nueva;
+                Pedido pedido = cambiaraEntregado(id_pedido);
+                pedido.Detalle_pedido = recuperarDetallePedido(id_pedido);
+
+                Entrada nueva = new Entrada();
+                nueva.id_pedido = pedido.id_pedido;
+                nueva.id_usuario = getUserId();
+                nueva.detalle_entrada = detalle_entrada;
+                ElContextoBD.Entrada.Add(nueva);
+                ElContextoBD.SaveChanges();
+
+                foreach (Detalle__entrada detalle in detalle_entrada)
+                {
+                    actualizarInventario(detalle.id_producto, detalle.cantidad);
+                }
+
+                return nueva;
+            }
+            catch (Exception ex) 
+            { 
+                throw new Exception(ex.Message); 
+            }
         }
-        
-        public Inventario actualizarInventario (int id_producto, int cantidad) { 
+
+        public Inventario actualizarInventario(int id_producto, int cantidad)
+        {
 
             Inventario inventario = ElContextoBD.Inventario.Where(x => x.id_producto == id_producto).FirstOrDefault();
             if (inventario == null)
@@ -156,13 +165,13 @@ namespace BL
                 return nuevoInventario(id_producto, cantidad);
             }
             int actual = inventario.total;
-            inventario.total = cantidad+actual;
+            inventario.total = cantidad + actual;
             ElContextoBD.Inventario.Update(inventario);
             ElContextoBD.SaveChanges();
 
-           return inventario;
+            return inventario;
         }
-        
+
         public Inventario nuevoInventario(int id_producto, int cantidad)
 
         {
@@ -181,8 +190,8 @@ namespace BL
             {
                 throw new Exception(e.Message);
             }
-        }  
-    
+        }
+
     }
 }
 
