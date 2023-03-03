@@ -23,9 +23,6 @@ builder.Services.AddDbContext<ContextoDeBasedeDatos>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
-builder.Services.AddScoped<BL.IRepositorio, BL.Repositorio>();
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
