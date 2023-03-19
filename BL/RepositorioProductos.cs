@@ -94,11 +94,20 @@ namespace BL
 
             if (productobuscar != null)
             {
-                ProductosProveedores nuevoproveedorproducto = new ProductosProveedores();
-                nuevoproveedorproducto.Producto = productobuscar;
-                nuevoproveedorproducto.Proveedor = proveedor;
+                try
+                {
+                ProductoProveedores nuevoproveedorproducto = new ProductoProveedores();
+                nuevoproveedorproducto.id_producto = productobuscar.id_producto;
+                nuevoproveedorproducto.id_proveedor = proveedor.id_proveedor;
+                nuevoproveedorproducto.Precio = precio;
                 ElContextoBD.ProductoProveedores.Add(nuevoproveedorproducto);
                 ElContextoBD.SaveChanges();
+
+                }
+                catch(Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
             }
 
             return productobuscar;

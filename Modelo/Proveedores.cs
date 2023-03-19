@@ -15,7 +15,7 @@ namespace Modelo
         public string Nombre { get; set; }
         public int Cedula_juridica { get; set; }
 
-        [ForeignKey("id_producto")]
-        public ICollection<Producto>? Productos { get; set; }
+        /*[ForeignKey("id_producto")]
+        public virtual ICollection<Producto>? Productos { get; set; }*/
     }
 }

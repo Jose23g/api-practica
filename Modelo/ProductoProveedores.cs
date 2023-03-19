@@ -8,15 +8,19 @@ using System.Threading.Tasks;
 
 namespace Modelo
 {
-    public class ProductosProveedores
+    public class ProductoProveedores
     {
-        [ForeignKey("id_producto")]
+        [Key]
+        public int id_producto { get; set; }
+        [Key]
+        public int id_proveedor { get; set; }
+        public float Precio { get; set; }
+
+        /*[ForeignKey("id_producto")]
         public Producto Producto { get; set; }
 
         [ForeignKey("id_proveedor")]
-        public Proveedores Proveedor { get; set; }
-
-        public float Precio { get; set; }
+        public Proveedores Proveedor { get; set; }*/
 
     }
 }
