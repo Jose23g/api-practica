@@ -40,6 +40,7 @@ builder.Services.AddIdentity<user, IdentityRole>(x =>
 builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuarios>();
 builder.Services.AddScoped<IRepositorioPedido, RepositorioPedido>();
 builder.Services.AddScoped<IRepositorioInventario, RepositorioInventario>();
+builder.Services.AddScoped<IRepositorioProductos, RepositorioProductos>();
 
 
 var configuration = builder.Configuration;

@@ -11,8 +11,13 @@ namespace DA
         public DbSet<Detalle_pedido> Detalle_pedido { get; set; }
         public DbSet<Entrada> Entrada { get; set; }
         public DbSet<Detalle__entrada> Detalle_entrada { get; set; }
-        public DbSet<Inventario> Inventario { get; set; }
+        public DbSet<Inventario> Inventario { get; set; } 
+        public DbSet<Producto> Producto { get; set; }
+        public DbSet<Presentacion> Presentacion { get; set; }
 
+        public DbSet<Proveedores> Proveedores { get; set; }
+        public DbSet<Unidad_Medida> Unidad_Medida { get; set; }
+        public DbSet<ProductosProveedores> ProductoProveedores { get; set; }
 
         public ContextoDeBasedeDatos(DbContextOptions<ContextoDeBasedeDatos> opciones) : base(opciones)
         {
@@ -20,8 +25,8 @@ namespace DA
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-           /* builder.Entity<ProductoProveedores>()
-                .HasKey(m => new { m.id_proveedor, m.id_producto });*/
+           builder.Entity<ProductosProveedores>()
+                .HasKey(m => new { m.Producto.id_producto, m.Proveedor.id_proveedor });
             base.OnModelCreating(builder);
         }
     }
