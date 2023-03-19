@@ -11,7 +11,7 @@ namespace DA
         public DbSet<Detalle_pedido> Detalle_pedido { get; set; }
         public DbSet<Entrada> Entrada { get; set; }
         public DbSet<Detalle__entrada> Detalle_entrada { get; set; }
-        public DbSet<Inventario> Inventario { get; set; } 
+        public DbSet<Inventario> Inventario { get; set; }
         public DbSet<Producto> Producto { get; set; }
         public DbSet<Presentacion> Presentacion { get; set; }
 
@@ -25,9 +25,8 @@ namespace DA
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-           builder.Entity<ProductoProveedores>()
-                .HasKey(m => new { m.id_proveedor, m.id_producto });
-            base.OnModelCreating(builder);
+
+
         }
     }
 

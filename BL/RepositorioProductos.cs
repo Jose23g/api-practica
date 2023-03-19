@@ -41,7 +41,7 @@ namespace BL
 
         public List<Producto> ListarProductos()
         {
-            return ElContextoBD.Producto.Include("Unidad_Medida").Include("Presentacion").ToList();
+            return ElContextoBD.Producto.Include("Unidad_Medida").Include("Presentacion").Include("Proveedores").ToList();
         }
 
         public Presentacion verificarpresentacion(Presentacion presentacion)

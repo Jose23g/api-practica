@@ -11,16 +11,16 @@ namespace Modelo
     public class ProductoProveedores
     {
         [Key]
+        public int id { get; set; }
+
         public int id_producto { get; set; }
-        [Key]
+
         public int id_proveedor { get; set; }
         public float Precio { get; set; }
 
-        /*[ForeignKey("id_producto")]
         public Producto Producto { get; set; }
+        public Proveedores Proveedores { set; get; }
 
-        [ForeignKey("id_proveedor")]
-        public Proveedores Proveedor { get; set; }*/
 
     }
 }
