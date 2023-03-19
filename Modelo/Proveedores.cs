@@ -14,8 +14,7 @@ namespace Modelo
         public int id_proveedor { get; set; }
         public string Nombre { get; set; }
         public int Cedula_juridica { get; set; }
-
-      
-        public virtual ICollection<Producto>? Productos { get; set; }
+        
+        public ICollection<ProductoProveedores> ProductoProveedores { get; set; }
     }
 }

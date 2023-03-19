@@ -89,20 +89,21 @@ namespace BL
         public Producto registrarproveedor(int codigopoducto, int cedulajuridica, float precio)
         {
             Producto productobuscar = ElContextoBD.Producto.Where(p => p.codigo_producto == codigopoducto).FirstOrDefault();
-            Proveedores proveedor = ElContextoBD.Proveedores.Where(pr => pr.Cedula_juridica == cedulajuridica).FirstOrDefault();
-            
+            var proveedor = ElContextoBD.Proveedores.Where(pr => pr.Cedula_juridica == cedulajuridica).FirstOrDefault();
+     
 
             if (productobuscar != null)
             {
                 try
                 {
-                ProductoProveedores nuevoproveedorproducto = new ProductoProveedores();
-                nuevoproveedorproducto.id_producto = productobuscar.id_producto;
-                nuevoproveedorproducto.id_proveedor = proveedor.id_proveedor;
-                nuevoproveedorproducto.Precio = precio;
-                ElContextoBD.ProductoProveedores.Add(nuevoproveedorproducto);
-                ElContextoBD.SaveChanges();
 
+                    ProductoProveedores relacion = new ProductoProveedores();
+                    relacion.Producto = productobuscar;
+                    relacion.Proveedores = proveedor;
+                    relacion.Precio = precio;
+
+                    ElContextoBD.ProductoProveedores.Add(relacion);
+                    ElContextoBD.SaveChanges();
                 }
                 catch(Exception e)
                 {

@@ -22,7 +22,6 @@ namespace Modelo
         [ForeignKey("id_presentacion")]
         public Presentacion Presentacion { get; set; }
 
-        
-        public virtual ICollection<Proveedores>? Proveedores  { get; set; }
+        public ICollection<ProductoProveedores> ProductoProveedores  { get; set; }
     }
 }

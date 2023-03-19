@@ -23,10 +23,28 @@ namespace DA
         {
 
         }
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            /* builder.Entity<ProductoProveedores>()
+                .HasKey(m => new { m.id_proveedor, m.id_producto });*/
+            modelBuilder.Entity<ProductoProveedores>()
+           .HasKey(pp => new { pp.id_producto, pp.id_proveedor });
 
+            modelBuilder.Entity<ProductoProveedores>()
+                .HasOne(pp => pp.Producto)
+                //.WithMany(p => p.Proveedores)
+                .WithMany(p => p.ProductoProveedores)
+                .HasForeignKey(pp => pp.id_producto);
 
+            modelBuilder.Entity<ProductoProveedores>()
+                .HasOne(pp => pp.Proveedores)
+                //.WithMany(p => p.Productos)
+                .WithMany(p => p.ProductoProveedores)
+                .HasForeignKey(pp => pp.id_proveedor);
+            modelBuilder.Entity<ProductoProveedores>()
+                .Property(pp => pp.Precio);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 

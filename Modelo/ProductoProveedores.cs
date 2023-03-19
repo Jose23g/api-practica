@@ -10,17 +10,11 @@ namespace Modelo
 {
     public class ProductoProveedores
     {
-        [Key]
-        public int id { get; set; }
-
         public int id_producto { get; set; }
-
         public int id_proveedor { get; set; }
         public float Precio { get; set; }
 
         public Producto Producto { get; set; }
-        public Proveedores Proveedores { set; get; }
-
-
+        public Proveedores Proveedores { get; set; }
     }
 }
