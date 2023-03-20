@@ -40,8 +40,11 @@ namespace BL
         }
 
         public List<Producto> ListarProductos()
-        {
-            return ElContextoBD.Producto.Include("Unidad_Medida").Include("Presentacion").Include("Proveedores").ToList();
+        {  
+            List<Producto> productos = new List<Producto>();
+            productos = ElContextoBD.Producto.Include("Unidad_Medida").Include("Presentacion").Include("ProductoProveedores.Proveedores").ToList();
+
+            return productos;
         }
 
         public Presentacion verificarpresentacion(Presentacion presentacion)

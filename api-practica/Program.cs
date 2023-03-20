@@ -41,6 +41,7 @@ builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuarios>();
 builder.Services.AddScoped<IRepositorioPedido, RepositorioPedido>();
 builder.Services.AddScoped<IRepositorioInventario, RepositorioInventario>();
 builder.Services.AddScoped<IRepositorioProductos, RepositorioProductos>();
+builder.Services.AddScoped<IRepositorioProveedores, RepositorioProveedores>();
 
 
 var configuration = builder.Configuration;
