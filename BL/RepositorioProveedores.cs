@@ -2,6 +2,7 @@
 using Modelo;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -34,8 +35,19 @@ namespace BL
         public List<Proveedores> listarconproductos()
         {
             List<Proveedores> proveedoresproducto = new List<Proveedores>();
-            proveedoresproducto = ElcontextoBD.Proveedores.Include("ProductoProveedores").ToList();
+            
+            proveedoresproducto = ElcontextoBD.Proveedores.ToList();
 
+            foreach(Proveedores proveedor in proveedoresproducto)
+            {
+                proveedor.ProductoProveedores = ElcontextoBD.ProductoProveedores.Where(x=> x.id_proveedor == proveedor.id_proveedor).ToList();
+
+                foreach(ProductoProveedores pp_producto in proveedor.ProductoProveedores)
+                {
+                    pp_producto.Producto = ElcontextoBD.Producto.Where(x => x.id_producto == pp_producto.id_producto).FirstOrDefault();
+                }
+            }
+      
             return proveedoresproducto;
         }
 
